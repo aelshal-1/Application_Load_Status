@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="details"
+            type="com.udacity.DetailActivity.Details" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".DetailActivity"
+        tools:showIn="@layout/activity_detail"
+        app:layoutDescription="@xml/content_detail_scene">
+
+        <TextView
+            android:id="@+id/file_nameTV"
+            style="@style/detailsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/file_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/file_valueTV"
+            style="@style/detailsStyle"
+            android:maxWidth="200dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{details.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.984"
+            app:layout_constraintStart_toEndOf="@+id/file_nameTV"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/statusTV"
+            style="@style/detailsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/file_valueTV" />
+
+        <TextView
+            android:id="@+id/status_valueTV"
+            style="@style/detailsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{details.status}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/statusTV"
+            app:layout_constraintTop_toBottomOf="@+id/file_valueTV"
+            tools:text="Success" />
+
+        <Button
+            android:id="@+id/finishBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:background="@color/colorAccent"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>
