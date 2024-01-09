@@ -1,6 +1,7 @@
 package com.udacity
 
 import android.app.NotificationManager
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -31,8 +32,10 @@ class DetailActivity : AppCompatActivity() {
         binding.contentDetail.details = details
 
         binding.contentDetail.finishBtn.setOnClickListener {
-            finish()
+            startActivity(Intent(applicationContext,MainActivity::class.java))
         }
+
+        //binding.contentDetail.myMotion.transitionToStart()
 
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.cancelAll()

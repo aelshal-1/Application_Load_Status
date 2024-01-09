@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -20,11 +21,13 @@ import androidx.core.content.ContextCompat
 import com.udacity.databinding.ActivityMainBinding
 import com.udacity.util.cancelNotifications
 import com.udacity.util.sendNotification
+import android.Manifest
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     private var downloadID: Long = 0
 
     private lateinit var notificationManager: NotificationManager
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
+        askNotificationPermission()
         createChannel(getString(R.string.download_notification_channel_id),getString(R.string.download_notification_channel_name))
 
 
@@ -145,5 +149,35 @@ class MainActivity : AppCompatActivity() {
         private const val URL_RETROFIT =
             "https://github.com/square/retrofit"
         private const val CHANNEL_ID = "channelId"
+        private const val REQUEST_CODE_NOTIFICATION = 123
+    }
+
+    private fun askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+//                Log.e(TAG, "PERMISSION_GRANTED")
+                // FCM SDK (and your app) can post notifications.
+            } else {
+
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Notification Permission Required")
+                    .setMessage("This app needs notification permission to send you important updates.")
+                    .setPositiveButton("Grant Permission") { _, _ ->
+                        // Request the permission
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                            REQUEST_CODE_NOTIFICATION
+                        )
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create().show()
+            }
+        }
     }
 }
