@@ -4,8 +4,11 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import com.udacity.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -39,6 +42,15 @@ class DetailActivity : AppCompatActivity() {
 
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.cancelAll()
+
+
+
+        val autoTransition = AutoTransition()
+        autoTransition.setDuration(1000)
+        binding.contentDetail.myMotion.postDelayed({
+            TransitionManager.beginDelayedTransition(binding.contentDetail.myMotion, autoTransition)
+            binding.contentDetail.myMotion.transitionToEnd()
+        }, 1000)
 
     }
 

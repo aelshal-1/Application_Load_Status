@@ -34,6 +34,18 @@
             app:layout_constraintStart_toEndOf="@+id/statusTV"
             app:layout_constraintTop_toBottomOf="@+id/file_valueTV"
             android:alpha="0.1"/>
+
+        <Constraint
+            android:id="@+id/finishBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorAccent"
+            android:text="@string/ok"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -66,6 +78,18 @@
             app:layout_constraintStart_toEndOf="@+id/statusTV"
             app:layout_constraintTop_toBottomOf="@+id/file_valueTV"
             android:alpha="1.0"/>
+
+        <Constraint
+            android:id="@+id/finishBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/colorAccent"
+            android:text="@string/ok"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <Transition
@@ -86,5 +110,18 @@
             app:targetId="@id/file_valueTV"
             app:clickAction="toggle"
             />
+
+        <KeyFrameSet>
+            <KeyAttribute
+                app:framePosition="85"
+                app:motionTarget="@id/file_valueTV"
+                android:alpha="0.0"
+                />
+            <KeyAttribute
+                app:framePosition="85"
+                app:motionTarget="@id/status_valueTV"
+                android:alpha="0.0"
+                />
+        </KeyFrameSet>
     </Transition>
 </MotionScene>
